@@ -217,13 +217,21 @@ class TimeTable{
          Enrollment_package_number = info.get(14).text().trim();
          package_available = info.get(15).text().trim();
          
-         if (info.size() == 17) {
+         if (info.size() == 17) { // 개설 대학이 들어가있는 교양수업의 경우
         	 if (classroom.length() == 0) // 강의실이 없는 경우 처리
              	continue;
         	 try{
                  parser = new Scanner(classroom).useDelimiter("-");
-                 this.sendQuery(class_number, grade, class_name, parser.next(),parser.next(),class_time);
-              }
+                 String building, room;
+                 building  = parser.next();
+                 room = parser.next();
+                 parser.close();
+                 if(room.length()>6){
+                    parser = new Scanner(room).useDelimiter(" ");
+                    room = parser.next();
+                    parser.close();
+                 }
+        	 }
               catch(NoSuchElementException e) {
               	System.err.print(classroom.length());
               	System.err.println(" " + class_name + " " + classroom + " " + code);
