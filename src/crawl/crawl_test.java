@@ -241,7 +241,16 @@ class TimeTable{
             	continue;
             try{
                parser = new Scanner(classroom).useDelimiter("-");
-               this.sendQuery(class_number, grade, class_name, parser.next(),parser.next(),class_time);
+               String building, room;
+               building  = parser.next();
+               room = parser.next();
+               parser.close();
+               if(room.length()>6){
+                  parser = new Scanner(room).useDelimiter(" ");
+                  room = parser.next();
+                  parser.close();
+               }
+               this.sendQuery(class_number, grade, class_name, building,room,class_time);
             }
             catch(NoSuchElementException e) {
             	System.err.print(classroom.length());
