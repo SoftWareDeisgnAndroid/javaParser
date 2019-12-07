@@ -1,12 +1,15 @@
 package crawl;
 
 import java.sql.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.util.StringTokenizer;
 
 public class DBtest {
 
@@ -98,6 +101,7 @@ class TimeTable{
 			package_available = info.get(15).text().trim();
 			note = info.get(16).text().trim();
 			parser = new Scanner(classroom).useDelimiter("-");
+			class_time = normalize(class_time);
 			this.sendQuery(class_number, grade, class_name, parser.next(),parser.next(),class_time);//파싱해서 따로 따로 보내줘
 			parser.close();
 			System.out.printf("%s %s %s %s %s %s %s %d %s %s %s %s %s %s %s %s %s\n\n", grade, classify, open_university, class_number, class_name,
@@ -126,5 +130,24 @@ class TimeTable{
 			e.printStackTrace();
 			System.out.println("추가 실패");
 		}
+	}
+	private String normalize(String time){
+		String ret = "";
+		String preDay = null;
+		StringTokenizer st = new StringTokenizer(time,", ");
+		String[] days = {"월","화","수","목","금","토"};
+		while(st.hasMoreTokens()) {
+			String temp = st.nextToken();
+			if(Arrays.asList(days).contains(temp)){
+				preDay = String.valueOf(temp.charAt(0));
+				ret.concat(temp);
+				ret.concat(" ");
+			}
+			else{
+				ret.concat(preDay);
+				ret.concat(temp);
+			}
+		}
+		return ret;
 	}
 }
