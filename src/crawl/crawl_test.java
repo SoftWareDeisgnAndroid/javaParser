@@ -2,8 +2,10 @@ package parser;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
@@ -154,6 +156,7 @@ class TimeTable{
    private String package_available; // 수강 꾸러미 신청 가능 여부
    private String note; // 비고
    private Scanner parser;
+   private char preDay;
    
    BufferedWriter output = null;
    public TimeTable(){
@@ -258,6 +261,7 @@ class TimeTable{
                   room = parser.next();
                   parser.close();
                }
+               class_time = normalize(class_time);
                this.sendQuery(class_number, grade, class_name, building,room,class_time);
             }
             catch(NoSuchElementException e) {
@@ -290,4 +294,23 @@ class TimeTable{
          System.err.println("추가 실패");
       }
    }
+   private String normalize(String time){
+		StringBuilder ret = new StringBuilder("");
+		StringTokenizer st = new StringTokenizer(time,", ");
+		String[] days = {"월","화","수","목","금","토"};
+		while(st.hasMoreTokens()) {
+			String temp = st.nextToken();
+			if(Arrays.asList(days).contains(temp.charAt(0)+"")){
+				preDay = temp.charAt(0);
+				ret.append(temp);
+				ret.append(" ");
+			}
+			else{
+				ret.append(preDay);
+				ret.append(temp);
+				ret.append(" ");
+			}
+		}
+		return ret.toString();
+	}
 }
