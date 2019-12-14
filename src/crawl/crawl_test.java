@@ -236,7 +236,11 @@ class TimeTableProduct extends Product{
 		return lecturename;
 	}
 	public String getLectureBuilding() {
-		return lectureBuilding;
+      int idx = lectureBuilding.indexOf("(");
+      if(idx == -1)
+         return lectureBuilding;
+      lectureBuilding = lectureBuilding.substring(0, idx);
+      return lectureBuilding;
 	}
 	public String getLectureRoom() {
 		return lectureRoom;
