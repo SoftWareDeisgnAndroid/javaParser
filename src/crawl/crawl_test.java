@@ -13,35 +13,23 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-
 public class crawl_test {
    
    public static void main(String[] args) throws Exception {
       final String[] site_list = { "search_subj_area_cde=1B0203&search_open_yr_trm=20192", "search_subj_area_cde=1C&search_open_yr_trm=20192","search_subj_div_cde=07&search_open_yr_trm=20192",
             "search_subj_area_cde=46&search_open_yr_trm=20192", "search_open_crse_cde=300H&search_open_yr_trm=20192", "search_open_crse_cde=1108&sub=11&search_open_yr_trm=20192",
             "search_open_crse_cde=1101&sub=11&search_open_yr_trm=20192", "search_open_crse_cde=110B&sub=11&search_open_yr_trm=20192", "search_open_crse_cde=1104&sub=11&search_open_yr_trm=20192",
-            "search_open_crse_cde=1103&sub=11&search_open_yr_trm=20192",
-            "search_open_crse_cde=1106&sub=11&search_open_yr_trm=20192",
-            "search_open_crse_cde=1102&sub=11&search_open_yr_trm=20192",
-            "search_open_crse_cde=11&sub=11&search_open_yr_trm=20192",
-            "search_open_crse_cde=1109&sub=11&search_open_yr_trm=20192",
-            "search_open_crse_cde=1105&sub=11&search_open_yr_trm=20192",
-            "search_open_crse_cde=1107&sub=11&search_open_yr_trm=20192",
-            "search_open_crse_cde=110A&sub=11&search_open_yr_trm=20192",
-            "search_open_crse_cde=120A&sub=12&search_open_yr_trm=20192",
-            "search_open_crse_cde=1204&sub=12&search_open_yr_trm=20192",
-            "search_open_crse_cde=1209&sub=12&search_open_yr_trm=20192",
-            "search_open_crse_cde=120902&sub=12&search_open_yr_trm=20192",
-            "search_open_crse_cde=120901&sub=12&search_open_yr_trm=20192",
-            "search_open_crse_cde=1202&sub=12&search_open_yr_trm=20192",
-            "search_open_crse_cde=1207&sub=12&search_open_yr_trm=20192",
-            "search_open_crse_cde=120C&sub=12&search_open_yr_trm=20192",
-            "search_open_crse_cde=1205&sub=12&search_open_yr_trm=20192",
-            "search_open_crse_cde=1201&sub=12&search_open_yr_trm=20192",
-            "search_open_crse_cde=1203&sub=12&search_open_yr_trm=20192",
-            "search_open_crse_cde=130A&sub=13&search_open_yr_trm=20192","search_open_crse_cde=130705&sub=13&search_open_yr_trm=20192", 
+            "search_open_crse_cde=1103&sub=11&search_open_yr_trm=20192", "search_open_crse_cde=1106&sub=11&search_open_yr_trm=20192",
+            "search_open_crse_cde=1102&sub=11&search_open_yr_trm=20192", "search_open_crse_cde=11&sub=11&search_open_yr_trm=20192",
+            "search_open_crse_cde=1109&sub=11&search_open_yr_trm=20192", "search_open_crse_cde=1105&sub=11&search_open_yr_trm=20192",
+            "search_open_crse_cde=1107&sub=11&search_open_yr_trm=20192", "search_open_crse_cde=110A&sub=11&search_open_yr_trm=20192",
+            "search_open_crse_cde=120A&sub=12&search_open_yr_trm=20192", "search_open_crse_cde=1204&sub=12&search_open_yr_trm=20192",
+            "search_open_crse_cde=1209&sub=12&search_open_yr_trm=20192", "search_open_crse_cde=120902&sub=12&search_open_yr_trm=20192",
+            "search_open_crse_cde=120901&sub=12&search_open_yr_trm=20192", "search_open_crse_cde=1202&sub=12&search_open_yr_trm=20192",
+            "search_open_crse_cde=1207&sub=12&search_open_yr_trm=20192", "search_open_crse_cde=120C&sub=12&search_open_yr_trm=20192",
+            "search_open_crse_cde=1205&sub=12&search_open_yr_trm=20192", "search_open_crse_cde=1201&sub=12&search_open_yr_trm=20192",
+            "search_open_crse_cde=1203&sub=12&search_open_yr_trm=20192", "search_open_crse_cde=130A&sub=13&search_open_yr_trm=20192",
+            "search_open_crse_cde=130705&sub=13&search_open_yr_trm=20192", 
             "search_open_crse_cde=130701&sub=13&search_open_yr_trm=20192", "search_open_crse_cde=1309&sub=13&search_open_yr_trm=20192",
             "search_open_crse_cde=1301&sub=13&search_open_yr_trm=20192", "search_open_crse_cde=130Q&sub=13&search_open_yr_trm=20192",
             "search_open_crse_cde=130Q01&sub=13&search_open_yr_trm=20192", "search_open_crse_cde=130Q02&sub=13&search_open_yr_trm=20192",
@@ -123,10 +111,7 @@ public class crawl_test {
         try {
           System.in.read();
         } catch (IOException e) { }
-      }
-
-
-      
+      }     
 }   
 
 
@@ -138,38 +123,12 @@ class TimeTable{
    private Connection connection = null;
    private PreparedStatement pstmt = null;
 
-   private String grade; // 학년
-   private String classify; // 교과 구분
-   private String department; // 개설 대학
-   private String class_number; // 교과목 번호
-   private String class_name; // 과목 이름
-   private String credit; // 학점
-   private String class_theory; // 강의(이론)
-   private String class_practice; // 실습
-   private String professor; // 담당 교수
-   private String class_time; // 강의 시간
-   private String real_class_time; // 강의 시간(실제 시간)
-   private String classroom; // 강의실
-   private String capacity; // 수강 정원
-   private String Enrollment_number; // 수강 신청 수
-   private String Enrollment_package_number; // 수강 꾸러미 수
-   private String package_available; // 수강 꾸러미 신청 가능 여부
-   private String note; // 비고
-   private Scanner parser;
    private char preDay;
    
-   BufferedWriter output = null;
    public TimeTable(){
       /*
       establish connection to DB
       */
-      try {
-         output = new BufferedWriter(new FileWriter("crawlResult.txt"));
-      } catch (IOException e1) {
-         System.err.println("IOException during creating txt file.\n");
-         e1.printStackTrace();
-      }
-      
       try {
          Class.forName("com.mysql.jdbc.Driver");
          connection = DriverManager.getConnection(DBURL,ID,PW);
@@ -183,111 +142,43 @@ class TimeTable{
    public void crawl(String code) throws NoSuchElementException, IOException{
       Response execute = Jsoup.connect("http://my.knu.ac.kr/stpo/stpo/cour/listLectPln/list.action?" + code).execute();
       Document doc = Jsoup.parse(execute.body());
-      //Document doc = Jsoup.connect("http://my.knu.ac.kr/stpo/stpo/cour/listLectPln/list.action?" + code).get();
       Elements contents = doc.select("tbody").select("tr");
-      String temp;
+      TimeTableBuilder timeTableBuilder = new TimeTableBuilder();
+      TimeTableMaker timeTableMaker = new TimeTableMaker(timeTableBuilder);
+      String classroom;
       for (Element content: contents) {
          Elements info = content.select("td");
          if (info.size() <= 0) {
             continue;
          }
-         if (info.size() < 16) {
-            output.newLine();
-            for (int i = 0; i < info.size(); i++) {
-               temp = info.get(i).text().trim() + " ";
-               output.write(temp);
-            }
-         }
-         /*for (int i = 0; i <= 16; i++) {
-            System.out.print(info.get(i).text().trim());
-         }
-         System.out.println();
-         */
-         grade = info.get(0).text().trim();
-         classify = info.get(1).text().trim();
-         department = info.get(2).text().trim(); // 교양 수업에만 존재
-         class_number = info.get(3).text().trim();
-         class_name = info.get(4).text().trim();
-         credit = info.get(5).text().trim();
-         class_theory = info.get(6).text().trim();
-         //class_practice = info.get(7).text().trim(); //이유를 알 수 없는 오류
-         professor = info.get(8).text().trim();
-         class_time = info.get(9).text().trim();
-         real_class_time = info.get(10).text().trim();
-         classroom = info.get(11).text().trim();
-         capacity = info.get(12).text().trim();
-         Enrollment_number = info.get(13).text().trim();
-         Enrollment_package_number = info.get(14).text().trim();
-         package_available = info.get(15).text().trim();
          
-         if (info.size() == 17) { // 개설 대학이 들어가있는 교양수업의 경우
-        	 if (classroom.length() == 0) // 강의실이 없는 경우 처리
-             	continue;
-        	 try{
-                 parser = new Scanner(classroom).useDelimiter("-");
-                 String building, room;
-                 building  = parser.next();
-                 room = parser.next();
-                 parser.close();
-                 if(room.length()>6){
-                    parser = new Scanner(room).useDelimiter(" ");
-                    room = parser.next();
-                    parser.close();
-                 }
-        	 }
-              catch(NoSuchElementException e) {
-              	System.err.print(classroom.length());
-              	System.err.println(" " + class_name + " " + classroom + " " + code);
-              }
+         if (info.size() == 17) {
+        	 classroom = info.get(11).text().trim();
          }
          else {
-            class_name = info.get(3).text().trim();
-            class_number = info.get(2).text().trim();
-            classroom = info.get(10).text().trim();
-            class_time = info.get(8).text().trim();
-            /*System.out.printf("!%d %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n\n", info.size(), grade, classify, department, class_number, class_name,
-                  credit, class_theory, class_practice, professor, class_time, real_class_time, classroom, capacity, Enrollment_number,
-                  Enrollment_package_number, package_available);*/
-            if (classroom.length() == 0 || classroom.equals("(교외강의실) 현장견학지-")) // 강의실이 없는 경우 처리
-            	continue;
-            try{
-               parser = new Scanner(classroom).useDelimiter("-");
-               String building, room;
-               building  = parser.next();
-               room = parser.next();
-               parser.close();
-               if(room.length()>6){
-                  parser = new Scanner(room).useDelimiter(" ");
-                  room = parser.next();
-                  parser.close();
-               }
-               class_time = normalize(class_time);
-               this.sendQuery(class_number, grade, class_name, building,room,class_time);
-            }
-            catch(NoSuchElementException e) {
-            	System.err.print(classroom.length());
-            	System.err.println(" " + class_name + " " + classroom + " " + code);
-            }
-            //System.out.println(class_number+" "+ grade+ class_name+ " "+parser.next()+" "+parser.next() +" "+ class_time);
+        	 classroom = info.get(10).text().trim();
          }
+         if (classroom.length() == 0 || classroom.equals("(교외강의실) 현장견학지-")) // 강의실이 없는 경우 처리
+         	continue;
+      	timeTableMaker.build(info);
+      	sendQuery((TimeTableProduct) timeTableBuilder.getProduct());
       }
    }
-   private void sendQuery(String lecturenumber,String grade, String lecturename,String lectureBuilding,String lectureRoom,String class_time) {
+   private void sendQuery(TimeTableProduct data) {
       try {
          String sql = "INSERT IGNORE INTO TimeTable VALUES(?,?,?,?,?,?)";//DB 내용을 수정할까?
          pstmt = connection.prepareStatement(sql);
-         pstmt.setString(1,lecturenumber);
-         pstmt.setString(2, grade);
-         pstmt.setString(3, lecturename);
-         pstmt.setString(4, lectureBuilding);
-         pstmt.setString(5, lectureRoom);
-         pstmt.setString(6, class_time);
+         pstmt.setString(1, data.getLecturenumber());
+         pstmt.setString(2, data.getGrade());
+         pstmt.setString(3, data.getLecturename());
+         pstmt.setString(4, data.getLectureBuilding());
+         pstmt.setString(5, data.getLectureRoom());
+         pstmt.setString(6, normalize(data.getClass_time()));
          
          pstmt.executeUpdate();
-         //System.out.println(lecturenumber + " " + grade + " "+ lecturename+ " " + lectureBuilding + " " + lectureRoom + " " + class_time);
       }
       catch(NoSuchElementException e3) {
-         System.err.printf("%s failed\n", lecturenumber);
+         System.err.printf("%s failed\n", data.getLecturenumber());
       }
       catch(Exception e) {
          e.printStackTrace();
@@ -312,5 +203,138 @@ class TimeTable{
 			}
 		}
 		return ret.toString();
+	}
+}
+abstract class Product{
+	   String grade; // 학년
+	   String lecturenumber; // 교과목 번호
+	   String lecturename; // 과목 이름
+	   String lectureBuilding; // 강의 건물
+	   String lectureRoom; // 강의실 번호
+	   String class_time; // 강의 시간
+	   abstract void setData(String lecturenumber,String grade, String lecturename,String lectureBuilding,String lectureRoom,String class_time);
+	
+}
+
+class TimeTableProduct extends Product{
+	@Override
+	void setData(String lecturenumber,String grade, String lecturename,String lectureBuilding,String lectureRoom,String class_time) {
+		this.grade = grade;
+		this.lecturenumber = lecturenumber;
+		this.lecturename = lecturename;
+		this.lectureBuilding = lectureBuilding;
+		this.lectureRoom = lectureRoom;
+		this.class_time = class_time;
+	}
+	public String getGrade() {
+		return grade;
+	}
+	public String getLecturenumber() {
+		return lecturenumber;
+	}
+	public String getLecturename() {
+		return lecturename;
+	}
+	public String getLectureBuilding() {
+		return lectureBuilding;
+	}
+	public String getLectureRoom() {
+		return lectureRoom;
+	}
+	public String getClass_time() {
+		return class_time;
+	}
+}
+abstract class Builder{
+	abstract Builder setGrade(String grade);
+	abstract Builder setClass_number(String class_number);
+	abstract Builder setClass_name(String class_name);
+	abstract Builder setClass_room(String class_room);
+	abstract Builder setClass_time(String class_time);
+	abstract Product getProduct();
+	abstract void build();
+}
+
+class TimeTableBuilder extends Builder{
+	private String grade, class_number, class_name, building, room, class_time, classroom;
+	private Scanner parser = null;
+	TimeTableProduct product = new TimeTableProduct();
+	@Override
+	Builder setGrade(String grade) {
+		this.grade = grade;
+		return this;
+	}
+	@Override
+	Builder setClass_number(String class_number) {
+		this.class_number = class_number;
+		return this;
+	}
+	@Override
+	Builder setClass_name(String class_name) {
+		this.class_name= class_name;
+		return this;
+	}
+	@Override
+	Builder setClass_room(String classroom) {
+		this.classroom = classroom;
+		return this;
+	}
+	@Override
+	Builder setClass_time(String class_time) {
+		this.class_time = class_time;
+		return this;
+	}
+	public void build() {
+		try{
+            parser = new Scanner(classroom).useDelimiter("-");
+            building  = parser.next();
+            room = parser.next();
+            parser.close();
+            if(room.length()>6){
+               parser = new Scanner(room).useDelimiter(" ");
+               room = parser.next();
+               parser.close();
+            }
+   	 	}
+         catch(NoSuchElementException e) {
+         	System.err.print(classroom.length());
+         	System.err.println(" " + class_name + " " + classroom);
+         }
+		product.setData(class_number, grade, class_name, building, room,class_time);
+	}
+	public Product getProduct() {
+		return this.product;
+	}
+}
+
+class TimeTableMaker{
+	Builder builder;
+	public TimeTableMaker(Builder builder) {
+		this.builder = builder;
+	}
+	private String grade = null; // 학년
+	private String class_number = null; // 교과목 번호
+	private String class_name = null; // 과목 이름
+	private String classroom = null; // 강의실 번호
+	private String class_time = null; // 강의 시간
+	private Scanner parser = null;
+	void build(Elements info) {
+		if (info.size() == 17) { // 개설 대학이 들어가있는 교양수업의 경우
+			grade = info.get(0).text().trim();
+	        class_number = info.get(3).text().trim();
+	        class_name = info.get(4).text().trim();
+	        class_time = info.get(9).text().trim();
+	        classroom = info.get(11).text().trim();
+        }
+        else { // 교양 제외 수업
+           class_name = info.get(3).text().trim();
+           class_number = info.get(2).text().trim();
+           classroom = info.get(10).text().trim();
+           class_time = info.get(8).text().trim();
+        }
+		builder.setClass_name(class_name).setClass_number(class_number).setClass_room(classroom).setClass_time(class_time).setGrade(grade).build();
+	}
+	public Product getProduct() {
+		return builder.getProduct();
 	}
 }
