@@ -1,5 +1,3 @@
-package parser;
-
 import java.io.IOException;
 import java.sql.*;
 import java.util.Arrays;
@@ -144,7 +142,7 @@ class TimeTable{
       Document doc = Jsoup.parse(execute.body());
       Elements contents = doc.select("tbody").select("tr");
       TimeTableBuilder timeTableBuilder = new TimeTableBuilder();
-      TimeTableMaker timeTableMaker = new TimeTableMaker(timeTableBuilder);
+      TimeTableDirector timeTableDirector = new TimeTableDirector(timeTableBuilder);
       String classroom;
       for (Element content: contents) {
          Elements info = content.select("td");
@@ -160,7 +158,7 @@ class TimeTable{
          }
          if (classroom.length() == 0 || classroom.equals("(교외강의실) 현장견학지-")) // 강의실이 없는 경우 처리
          	continue;
-      	timeTableMaker.build(info);
+      	timeTableDirector.build(info);
       	sendQuery((TimeTableProduct) timeTableBuilder.getProduct());
       }
    }
@@ -236,11 +234,7 @@ class TimeTableProduct extends Product{
 		return lecturename;
 	}
 	public String getLectureBuilding() {
-      int idx = lectureBuilding.indexOf("(");
-      if(idx == -1)
-         return lectureBuilding;
-      lectureBuilding = lectureBuilding.substring(0, idx);
-      return lectureBuilding;
+		return lectureBuilding;
 	}
 	public String getLectureRoom() {
 		return lectureRoom;
@@ -304,6 +298,10 @@ class TimeTableBuilder extends Builder{
          	System.err.print(classroom.length());
          	System.err.println(" " + class_name + " " + classroom);
          }
+		int idx = building.indexOf("(");
+	    if(idx != -1) {
+	    	building = building.substring(0, idx);
+	    }
 		product.setData(class_number, grade, class_name, building, room,class_time);
 	}
 	public Product getProduct() {
@@ -311,9 +309,9 @@ class TimeTableBuilder extends Builder{
 	}
 }
 
-class TimeTableMaker{
+class TimeTableDirector{
 	Builder builder;
-	public TimeTableMaker(Builder builder) {
+	public TimeTableDirector(Builder builder) {
 		this.builder = builder;
 	}
 	private String grade = null; // 학년
@@ -323,8 +321,8 @@ class TimeTableMaker{
 	private String class_time = null; // 강의 시간
 	private Scanner parser = null;
 	void build(Elements info) {
+		grade = info.get(0).text().trim();
 		if (info.size() == 17) { // 개설 대학이 들어가있는 교양수업의 경우
-			grade = info.get(0).text().trim();
 	        class_number = info.get(3).text().trim();
 	        class_name = info.get(4).text().trim();
 	        class_time = info.get(9).text().trim();
